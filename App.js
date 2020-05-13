@@ -81,8 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inputRow: {
-    flex:1,
-    
+    flex:1, 
     margin:1,
     flexDirection: 'row',
     justifyContent: "space-between"
