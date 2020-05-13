@@ -1,27 +1,45 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 export default function App () {
+  const botoes = [['LIMPAR', 'DEL'], [7, 8, 9], [4, 5, 6], [1, 2, 3], [0]]
+
+  function renderButtons () {
+    let layout = botoes.map((buttonRows, index) => {
+      let rowItem = buttonRows.map((buttonItems, buttonIndex) => {
+        return <View key={'btn-' + buttonIndex} />
+      })
+      return (
+        <View style={styles.inputRow} key={'row-' + index}>
+          {rowItem}
+        </View>
+      )
+    })
+    return layout
+  }
   return (
     <>
-      
-
       <View style={styles.container}>
         <View style={styles.resultadoContainer}>
           <Text style={styles.resultadoTexto}>0</Text>
         </View>
+        
         <View style={styles.botoesContainer}>
-
-        <Text style={styles.num}>1</Text>
-        <Text style={styles.num}>2</Text>
-        <Text style={styles.num}>3</Text>
-        <Text style={styles.num}>4</Text>
-        <Text style={styles.num}>5</Text>
-        <Text style={styles.num}>6</Text>
-        <Text style={styles.num}>7</Text>
-        <Text style={styles.num}>8</Text>
-        <Text style={styles.num}>9</Text>
-        <Text style={styles.num}>0</Text>
+          
+            {botoes.map((buttonRows, index) => {
+              let rowItem = buttonRows.map((buttonItems, buttonIndex) => {
+                return <TouchableOpacity style={styles.botoesNucleo} key={'btn-' + buttonIndex} />
+              })
+              return (
+               
+                <View style={styles.inputRow} key={'row-' + index}>
+                  {rowItem}
+                </View>
+               
+              )
+            })}
+            
+         
         </View>
       </View>
     </>
@@ -31,34 +49,43 @@ export default function App () {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   
-    backgroundColor: '#fff',
-    
+
+    backgroundColor: '#fff'
   },
-  resultadoContainer:{
+  resultadoContainer: {
     flex: 2,
     backgroundColor: '#1E1240',
-    justifyContent: "center",
+    justifyContent: 'center'
   },
-  
-  
-  botoesContainer:{
-    flex:8,
-    
+
+  botoesContainer: {
+    flex: 8,
+
     backgroundColor: '#3D0075',
-    borderStyle:"dashed",
-    margin: 0.3,
-    padding: 5,
     
+    margin: 0.3,
+    padding: 5
   },
-  resultadoTexto:{
+  resultadoTexto: {
     color: '#FFF',
     fontSize: 80,
-    fontWeight:'bold',
+    fontWeight: 'bold',
     padding: 20,
-    textAlign: "right",
-  }, 
-  num:{
-    color: '#FFF',
+    textAlign: 'right'
+  },
+  botoesNucleo: {
+    flex: 1,
+    margin: 1,
+    backgroundColor: 'rgba(255,255,255, 0.1)',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  inputRow: {
+    flex:1,
+    
+    margin:1,
+    flexDirection: 'row',
+    justifyContent: "space-between"
+    
   }
 })
