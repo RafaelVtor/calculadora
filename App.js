@@ -1,10 +1,15 @@
-import React from 'react'
+import React, {useState, } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { isNumber } from 'util';
 
 export default function App () {
-  const botoes = [['LIMPAR', 'DEL'], [7, 8, 9], [4, 5, 6], [1, 2, 3], [0]]
+  const botoes = [['LIMPAR', 'DEL'], ['7', '8', '9', 'x'], ['4', '5', '6', '-'], ['1', '2', '3', '+'], ['0']]
 
-  function renderButtons () {
+  const [display, setDisplay] = useState('0')
+  
+
+//função para mapear os botões (não consegui chamar no return)
+  /*function renderButtons () {
     let layout = botoes.map((buttonRows, index) => {
       let rowItem = buttonRows.map((buttonItems, buttonIndex) => {
         return <View key={'btn-' + buttonIndex} />
@@ -16,30 +21,55 @@ export default function App () {
       )
     })
     return layout
+  } */
+
+  //função que pega o valor dos botões e exibe no display
+  function handleOnPress(value){
+    
+    
+     let num = display.concat(value)
+     console.log(num)
+     console.log(num.length)
+     if (num.length > 1) {
+       num = num.slice(0, 10) 
+     }
+
+      let str = "stake";
+      str = str.substring(1);
+      console.log(str);
+
+      
+
+      setDisplay(num);
+  
   }
+
   return (
     <>
       <View style={styles.container}>
         <View style={styles.resultadoContainer}>
-          <Text style={styles.resultadoTexto}>0</Text>
+  <Text style={styles.resultadoTexto} placeholder="0">{display}</Text>
         </View>
-        
+
         <View style={styles.botoesContainer}>
-          
-            {botoes.map((buttonRows, index) => {
-              let rowItem = buttonRows.map((buttonItems, buttonIndex) => {
-                return <TouchableOpacity style={styles.botoesNucleo} key={'btn-' + buttonIndex} />
-              })
+          {botoes.map((buttonRows, index) => {
+            let rowItem = buttonRows.map((buttonItems, buttonIndex) => {
               return (
-               
-                <View style={styles.inputRow} key={'row-' + index}>
-                  {rowItem}
-                </View>
-               
+                <TouchableOpacity
+                  style={styles.botoesNucleo}
+                  key={'btn-' + buttonIndex}
+                  onPress={()=>handleOnPress(buttonItems)}
+                >
+                  <Text style={styles.text}>{buttonItems}</Text>
+                </TouchableOpacity>
               )
-            })}
-            
-         
+            })
+            return (
+              <View style={styles.inputRow} key={'row-' + index}>
+                {rowItem}
+              </View>
+            )
+          })}
         </View>
       </View>
     </>
@@ -62,7 +92,7 @@ const styles = StyleSheet.create({
     flex: 8,
 
     backgroundColor: '#3D0075',
-    
+
     margin: 0.3,
     padding: 5
   },
@@ -81,10 +111,16 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inputRow: {
-    flex:1, 
-    margin:1,
+    flex: 1,
+    margin: 1,
     flexDirection: 'row',
-    justifyContent: "space-between"
-    
+    justifyContent: 'space-between'
+  },
+  text:{
+    color: '#FFF',
+    fontSize: 25,
+    fontWeight: 'bold',
+    padding: 20,
+    textAlign: 'right'
   }
 })
