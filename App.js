@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { isNumber } from 'util';
 
 export default function App () {
-  const botoes = [['LIMPAR', 'DEL'], ['7', '8', '9', 'x'], ['4', '5', '6', '-'], ['1', '2', '3', '+'], ['0']]
+  const botoes = [['LIMPAR', 'DEL'], [7, 8, 9, ' x '], [4, 5, 6, ' - '], [1, 2, 3, ' + '], [0]]
 
   const [display, setDisplay] = useState('0')
   
@@ -25,22 +25,21 @@ export default function App () {
 
   //função que pega o valor dos botões e exibe no display
   function handleOnPress(value){
-    
-    
-     let num = display.concat(value)
-     console.log(num)
-     console.log(num.length)
-     if (num.length > 1) {
-       num = num.slice(0, 10) 
-     }
 
-      let str = "stake";
-      str = str.substring(1);
-      console.log(str);
-
+     let num = 0
+     if(isNumber(value)){
+       console.log(isNumber(num))
+       num = display.concat(value).split(" ")
+      }
       
-
-      setDisplay(num);
+      console.log(num)
+      console.log(num.length)
+      if (num.length > 1) {
+        num = num.slice(0, 10) 
+      }
+            
+      setDisplay(display.concat(value));
+     
   
   }
 
