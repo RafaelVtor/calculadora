@@ -1,53 +1,84 @@
-import React, {useState, } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import { isNumber } from 'util';
+import { isNumber } from 'util'
+import getValue from './getValue'
 
 export default function App () {
-  const botoes = [['LIMPAR', 'DEL'], [7, 8, 9, ' x '], [4, 5, 6, ' - '], [1, 2, 3, ' + '], [0]]
+  const botoes = [
+    [' LIMPAR ', ' DEL '],
+    [7, 8, 9, ' x '],
+    [4, 5, 6, ' - '],
+    [1, 2, 3, ' + '],
+    [0, ' . ', ' / ', ' = ']
+  ]
 
   const [display, setDisplay] = useState('0')
-  
 
-//função para mapear os botões (não consegui chamar no return)
-  /*function renderButtons () {
-    let layout = botoes.map((buttonRows, index) => {
-      let rowItem = buttonRows.map((buttonItems, buttonIndex) => {
-        return <View key={'btn-' + buttonIndex} />
-      })
-      return (
-        <View style={styles.inputRow} key={'row-' + index}>
-          {rowItem}
-        </View>
-      )
+  function handleOnPress (value) {
+    let num1 = 0
+    let num2 = 0
+    let array = []
+    if (isNumber(value)) {
+      array = display.concat(value).split(' ')
+    }
+
+    if (array.length >= 1) {
+      array = array.slice(0)
+    }
+
+    array.map(valor => {
+      let teste = parseInt(valor)
+      if(isNumber(teste)){
+        console.log(teste + 'é um numeto')
+      }
+      let num1, num2 = 0;
+      num1 = teste
+      console.log(teste)
+      if (isNaN(teste)) {
+        let operador = valor
+        console.log(operador)
+        switch (operador) {
+          case '+':
+            console.log('soma')
+            break;
+          case '-':
+            console.log('subtração')
+            break;
+          case '*':
+            console.log('multiplicação')
+            break;
+          case '/':
+            console.log('divisão')
+            break;
+
+        }
+      }
+      console.log(valor)
     })
-    return layout
-  } */
 
-  //função que pega o valor dos botões e exibe no display
-  function handleOnPress(value){
+    switch (value) {
+      case 'LIMPAR':
+        this.setDisplay('0')
 
-     let num = 0
-     if(isNumber(value)){
-       console.log(isNumber(num))
-       num = display.concat(value).split(" ")
-      }
-      
-      console.log(num)
-      console.log(num.length)
-      if (num.length > 1) {
-        num = num.slice(0, 10) 
-      }
-            
-      setDisplay(display.concat(value));
-     
-  
+        break
+      case '=':
+        // getValue(array)
+        console.log('teste')
+
+        break
+      default:
+        setDisplay(display.concat(value))
+
+        break
+    }
   }
-
   return (
     <>
       <View style={styles.container}>
         <View style={styles.resultadoContainer}>
-  <Text style={styles.resultadoTexto} placeholder="0">{display}</Text>
+          <Text style={styles.resultadoTexto} placeholder='0'>
+            {display}
+          </Text>
         </View>
 
         <View style={styles.botoesContainer}>
@@ -57,7 +88,7 @@ export default function App () {
                 <TouchableOpacity
                   style={styles.botoesNucleo}
                   key={'btn-' + buttonIndex}
-                  onPress={()=>handleOnPress(buttonItems)}
+                  onPress={() => handleOnPress(buttonItems)}
                 >
                   <Text style={styles.text}>{buttonItems}</Text>
                 </TouchableOpacity>
@@ -115,7 +146,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   },
-  text:{
+  text: {
     color: '#FFF',
     fontSize: 25,
     fontWeight: 'bold',
