@@ -13,10 +13,9 @@ export default function App () {
   ]
 
   const [display, setDisplay] = useState('0')
+  let resultado = 0
 
   function handleOnPress (value) {
-    let num1 = 0
-    let num2 = 0
     let array = []
     if (isNumber(value)) {
       array = display.concat(value).split(' ')
@@ -26,35 +25,50 @@ export default function App () {
       array = array.slice(0)
     }
 
+    /*
     array.map(valor => {
       let teste = parseInt(valor)
-      if(isNumber(teste)){
-        console.log(teste + 'é um numeto')
-      }
-      let num1, num2 = 0;
-      num1 = teste
-      console.log(teste)
-      if (isNaN(teste)) {
-        let operador = valor
-        console.log(operador)
-        switch (operador) {
-          case '+':
-            console.log('soma')
-            break;
-          case '-':
-            console.log('subtração')
-            break;
-          case '*':
-            console.log('multiplicação')
-            break;
-          case '/':
-            console.log('divisão')
-            break;
+      let operador = ''
+      let igual = ''
+      let num1 = 0
+      let num2 = result
 
+      if (isNaN(teste)) {
+        if (teste == '=') {
+          igual = teste
+          console.log(igual)
+        } else {
+          operador = valor
+          console.log(operador)
         }
+      } if (isNumber(teste)) {
+        num1 = teste
+        console.log(num1)
+        setResult(+num1)
       }
-      console.log(valor)
+      switch (operador) {
+        case '+':
+          console.log('soma')
+          //result += num1
+        //  console.log(result)
+          //setResult(+num1)
+          break
+        case '-':
+          console.log('subtração')
+          //result = result - num
+          break
+        case 'x':
+          console.log('multiplicação')
+          //   result = result * num
+          break
+        case '/':
+          console.log('divisão')
+          //   result = result / num
+          break
+      }
+      console.log(result)
     })
+    //console.log(result)
 
     switch (value) {
       case 'LIMPAR':
@@ -62,15 +76,17 @@ export default function App () {
 
         break
       case '=':
-        // getValue(array)
         console.log('teste')
-
+        
         break
-      default:
-        setDisplay(display.concat(value))
-
-        break
-    }
+        default:
+          
+          break
+        }
+        
+        */
+       setDisplay(display.concat(value))
+        getValue(array, resultado)
   }
   return (
     <>

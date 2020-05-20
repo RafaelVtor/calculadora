@@ -1,51 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { isNumber } from 'util'
 
 
-export default function getValue (value) {
-  console.log(value)
 
-  let result = 0
+export default function getValue (value, result) {
+  
+  console.log(result)
+
+  
+  let sinal = ''
   
   value.map(valor => {
     let num = 0
-    let operador = null
-    let igual = null
-    let teste = parseInt(valor)
 
-    if (!isNaN(teste)) {
-      num = teste
-
-      console.log(num)
-    } else if (valor != '=') {
-      operador = valor
-    }else if(valor == '='){
-      igual = valor
+    if (isNumber(parseInt(valor))){
+      num = valor
     }
-
-    switch (operador) {
+    if(!isNumber(parseInt(valor)) ){
+      sinal = valor
+    }
+    switch (sinal) {
       case '+':
         console.log('soma')
-        result += num
-        console.log(result)
-        break
-      case '-':
-        console.log('subtração')
-        break
-      case 'x':
-        console.log('multiplicação')
-        break
-      case '/':
-        console.log('divisão')
-        
-        break
-      case 'LIMPAR':
-       
-       break
-      }
-      if(igual == '='){
-        console.log(result)
-      }
+          setResult(+ num)
+        break;
+        case '-':
+          result = result - num
+        break;
+        case 'x':
+          result = result * num
+        break;
+        case '/':
+          result = result / num
+        break;
+    
+      default:
+        break;
+    }
+    console.log(result)
       
     
   })
