@@ -86,7 +86,7 @@ export default function App () {
         
         */
        setDisplay(display.concat(value))
-        getValue(array, resultado)
+        getValue(array)
   }
   return (
     <>
