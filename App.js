@@ -15,35 +15,48 @@ export default function App () {
   const [display, setDisplay] = useState('0')
   const [displayResult, setDisplayResult] = useState('0')
   let resultado = 0
+  let teste
 
   function handleOnPress (value) {
     let array = []
-    if (isNumber(value)) {
-      array = display.concat(value).split(' ')
-    }
 
-    if (array.length >= 1) {
-      array = array.slice(0)
-    }
+    if (value == ' DEL ') {
+      //retia o ultimo caractere da string do display
+      setDisplay(display.substring(0, display.length - 1))
+    } else if (value == ' LIMPAR ') {
+      //reseta o display para 0
+      setDisplay('0')
+    } else if( value != ' = ') {
+      if (isNumber(value)) {
+        //separa a string do display em numeros e simbolos atravas do espeço nos vaores não númericos
+        array = display.concat(value).split(' ')
+      }
 
-    setDisplay(display.concat(value))
-    if(displayResult != '0'){
-      setDisplayResult('0')
+      setDisplay(display.concat(value))
+      if (value != ' = ') {
+        teste = getValue(array)
+        console.log(teste)
+      }
+      getValue(array)
     }
+    if(value == ' = '){
+      setDisplayResult(teste)
 
-    setDisplayResult(getValue(array))
+    }
   }
 
   return (
     <>
       <View style={styles.container}>
         <View style={styles.resultadoContainer}>
-          <Text style={styles.resultadoTexto} placeholder='0'>
-            {displayResult}
-          </Text>
-          <Text style={styles.resultadoTexto} placeholder='0'>
-            {display}
-          </Text>
+          <View style={styles.resultado}>
+            <Text style={styles.resultadoTexto} placeholder='0'>
+              {displayResult}
+            </Text>
+            <Text style={styles.resultadoTexto} placeholder='0'>
+              {display}
+            </Text>
+          </View>
         </View>
 
         <View style={styles.botoesContainer}>
@@ -78,9 +91,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   resultadoContainer: {
-    flex: 3,
-    backgroundColor: '#1E1240',
-    justifyContent: 'center'
+    flex: 2,
+    backgroundColor: '#1E1240'
+  },
+  resultado: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   },
 
   botoesContainer: {
